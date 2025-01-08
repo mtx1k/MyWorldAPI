@@ -1,6 +1,5 @@
 package com.j24e01.MyWorldAPI.models;
 
-import com.j24e01.MyWorldAPI.converters.ContinentConverter;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -16,8 +15,8 @@ public class Country {
 
     private String name;
 
-    @Convert(converter = ContinentConverter.class)
-    private Continent continent;
+    //@Convert(converter = ContinentConverter.class)
+    private String continent;
 
     private String region;
 
@@ -59,11 +58,11 @@ public class Country {
         this.name = name;
     }
 
-    public Continent getContinent() {
+    public String getContinent() {
         return continent;
     }
 
-    public void setContinent(Continent continent) {
+    public void setContinent(String continent) {
         this.continent = continent;
     }
 
