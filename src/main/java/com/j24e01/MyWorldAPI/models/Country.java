@@ -1,8 +1,9 @@
 package com.j24e01.MyWorldAPI.models;
 
+import com.j24e01.MyWorldAPI.converters.ContinentConverter;
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -11,57 +12,36 @@ public class Country {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Code", length = 3, nullable = false)
     private String code;
 
-    @Column(name = "Name", nullable = false, length = 52)
     private String name;
 
-    @Column(name = "Continent", nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = ContinentConverter.class)
     private Continent continent;
 
-    @Column(name = "Region", nullable = false, length = 26)
     private String region;
 
-    @Column(name = "SurfaceArea", nullable = false, precision = 10, scale = 2)
-    private Double surfaceArea;
+    private BigDecimal surfaceArea;
 
-    @Column(name = "IndepYear")
     private Short indepYear;
 
-    @Column(name = "Population", nullable = false)
     private Integer population;
 
-    @Column(name = "LifeExpectancy", precision = 3, scale = 1)
-    private Double lifeExpectancy;
+    private BigDecimal lifeExpectancy;
 
-    @Column(name = "GNP", precision = 10, scale = 2)
-    private Double gnp;
+    private BigDecimal gnp;
 
-    @Column(name = "GNPOld", precision = 10, scale = 2)
-    private Double gnpOld;
+    private BigDecimal gnpOld;
 
-    @Column(name = "LocalName", nullable = false, length = 45)
     private String localName;
 
-    @Column(name = "GovernmentForm", nullable = false, length = 45)
     private String governmentForm;
 
-    @Column(name = "HeadOfState", length = 60)
     private String headOfState;
 
-    @Column(name = "Capital")
     private Integer capital;
 
-    @Column(name = "Code2", nullable = false, length = 2)
     private String code2;
-
-    @OneToMany(mappedBy = "country")
-    private List<City> cities;
-
-    @OneToMany(mappedBy = "country")
-    private List<CountryLanguage> languages;
 
     public String getCode() {
         return code;
@@ -95,11 +75,11 @@ public class Country {
         this.region = region;
     }
 
-    public Double getSurfaceArea() {
+    public BigDecimal getSurfaceArea() {
         return surfaceArea;
     }
 
-    public void setSurfaceArea(Double surfaceArea) {
+    public void setSurfaceArea(BigDecimal surfaceArea) {
         this.surfaceArea = surfaceArea;
     }
 
@@ -119,27 +99,27 @@ public class Country {
         this.population = population;
     }
 
-    public Double getLifeExpectancy() {
+    public BigDecimal getLifeExpectancy() {
         return lifeExpectancy;
     }
 
-    public void setLifeExpectancy(Double lifeExpectancy) {
+    public void setLifeExpectancy(BigDecimal lifeExpectancy) {
         this.lifeExpectancy = lifeExpectancy;
     }
 
-    public Double getGnp() {
+    public BigDecimal getGnp() {
         return gnp;
     }
 
-    public void setGnp(Double gnp) {
+    public void setGnp(BigDecimal gnp) {
         this.gnp = gnp;
     }
 
-    public Double getGnpOld() {
+    public BigDecimal getGnpOld() {
         return gnpOld;
     }
 
-    public void setGnpOld(Double gnpOld) {
+    public void setGnpOld(BigDecimal gnpOld) {
         this.gnpOld = gnpOld;
     }
 
@@ -183,32 +163,16 @@ public class Country {
         this.code2 = code2;
     }
 
-    public List<City> getCities() {
-        return cities;
-    }
-
-    public void setCities(List<City> cities) {
-        this.cities = cities;
-    }
-
-    public List<CountryLanguage> getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(List<CountryLanguage> languages) {
-        this.languages = languages;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Country country = (Country) o;
-        return Objects.equals(code, country.code) && Objects.equals(name, country.name) && continent == country.continent && Objects.equals(region, country.region) && Objects.equals(surfaceArea, country.surfaceArea) && Objects.equals(indepYear, country.indepYear) && Objects.equals(population, country.population) && Objects.equals(lifeExpectancy, country.lifeExpectancy) && Objects.equals(gnp, country.gnp) && Objects.equals(gnpOld, country.gnpOld) && Objects.equals(localName, country.localName) && Objects.equals(governmentForm, country.governmentForm) && Objects.equals(headOfState, country.headOfState) && Objects.equals(capital, country.capital) && Objects.equals(code2, country.code2) && Objects.equals(cities, country.cities) && Objects.equals(languages, country.languages);
+        return Objects.equals(code, country.code) && Objects.equals(name, country.name) && continent == country.continent && Objects.equals(region, country.region) && Objects.equals(surfaceArea, country.surfaceArea) && Objects.equals(indepYear, country.indepYear) && Objects.equals(population, country.population) && Objects.equals(lifeExpectancy, country.lifeExpectancy) && Objects.equals(gnp, country.gnp) && Objects.equals(gnpOld, country.gnpOld) && Objects.equals(localName, country.localName) && Objects.equals(governmentForm, country.governmentForm) && Objects.equals(headOfState, country.headOfState) && Objects.equals(capital, country.capital) && Objects.equals(code2, country.code2);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(code, name, continent, region, surfaceArea, indepYear, population, lifeExpectancy, gnp, gnpOld, localName, governmentForm, headOfState, capital, code2, cities, languages);
+        return Objects.hash(code, name, continent, region, surfaceArea, indepYear, population, lifeExpectancy, gnp, gnpOld, localName, governmentForm, headOfState, capital, code2);
     }
 
     @Override
@@ -229,8 +193,6 @@ public class Country {
                 ", headOfState='" + headOfState + '\'' +
                 ", capital=" + capital +
                 ", code2='" + code2 + '\'' +
-                ", cities=" + cities +
-                ", languages=" + languages +
                 '}';
     }
 }

@@ -2,6 +2,7 @@ package com.j24e01.MyWorldAPI.models;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -11,16 +12,13 @@ public class CountryLanguage {
     @EmbeddedId
     private CountryLanguageId id;
 
-    @MapsId("countryCode")
     @ManyToOne
-    @JoinColumn(name = "CountryCode", nullable = false)
+    @JoinColumn(name = "CountryCode", insertable = false, updatable = false)
     private Country countryCode;
 
-    @Column(name = "IsOfficial", nullable = false)
     private Boolean isOfficial;
 
-    @Column(name = "Percentage", nullable = false, precision = 4, scale = 1)
-    private Double percentage;
+    private BigDecimal percentage;
 
     public CountryLanguageId getId() {
         return id;
@@ -46,11 +44,11 @@ public class CountryLanguage {
         isOfficial = official;
     }
 
-    public Double getPercentage() {
+    public BigDecimal getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(Double percentage) {
+    public void setPercentage(BigDecimal percentage) {
         this.percentage = percentage;
     }
 

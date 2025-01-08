@@ -9,20 +9,17 @@ import java.util.Objects;
 public class City {
 
     @Id
-    @Column(name = "ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "Name", nullable = false, length = 35)
     private String name;
 
-    @Column(name = "District", nullable = false, length = 20)
     private String district;
 
-    @Column(name = "Population", nullable = false)
     private Integer population;
 
     @ManyToOne
-    @JoinColumn(name = "CountryCode", nullable = false)
+    @JoinColumn(name = "CountryCode")
     private Country countryCode;
 
     public Integer getId() {
